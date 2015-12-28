@@ -18,32 +18,33 @@ $start = microtime(true);
 foreach ($valuealues as $key => $value){
     $memcached->set($key, $value);
 }
-$time = sprintf('%01.4f', microtime(true) - $start);
-echo "memcached set: $time\n";
+$set_time = sprintf('%01.4f', microtime(true) - $start);
 
 // get values (hits)
 $start = microtime(true);
 foreach ($valuealues as $key => $value) {
     $memcached->get($key);
 }
-$time = sprintf('%01.4f', microtime(true) - $start);
-echo "memcached get hit: $time\n";
+$get_time = sprintf('%01.4f', microtime(true) - $start);
 
 // get values (miss)
 $start = microtime(true);
 foreach ($valuealues as $key => $value) {
     $memcached->get('miss'.$key);
 }
-$time = sprintf('%01.4f', microtime(true) - $start);
-echo "memcached get miss: $time\n";
+$miss_time = sprintf('%01.4f', microtime(true) - $start);
 
 // Delete values
 $start = microtime(true);
 foreach ($valuealues as $key => $value) {
     $memcached->delete($key);
 }
-$time = sprintf('%01.4f', microtime(true) - $start);
-echo "memcached delete: $time\n";
+$del_time = sprintf('%01.4f', microtime(true) - $start);
+
+echo "memcached set: $set_time\n";
+echo "memcached get hit: $get_time\n";
+echo "memcached get miss: $miss_time\n";
+echo "memcached delete: $del_time\n";
 
 // teardown Memcached connection
 $memcached->flush();
