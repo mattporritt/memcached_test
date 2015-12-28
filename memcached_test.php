@@ -9,7 +9,7 @@ for ($i=0;$i<$c;$i++) {
 
 echo "memcached: $c keys\n";
 
-// Memcached
+// setup  Memcached connection
 $memcached = new Memcached(crc32('test'));
 $memcached->addServer('localhost', 11211);
 
@@ -44,3 +44,8 @@ foreach ($valuealues as $key => $value) {
 }
 $time = sprintf('%01.4f', microtime(true) - $start);
 echo "memcached delete: $time\n";
+
+// teardown Memcached connection
+$memcached->flush();
+$memcached->quit();
+unset($memcached);
