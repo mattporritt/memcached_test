@@ -9,6 +9,15 @@ for ($i=0;$i<$c;$i++) {
 
 echo "memcached: $c keys\n";
 
+// Print table header
+$cellsize  = 12;
+printf("[%0{$cellsize}s]|", 'Itterations');
+printf("[%0{$cellsize}s]|", 'Set Time');
+printf("[%0{$cellsize}s]|", 'Get Time');
+printf("[%0{$cellsize}s]|", 'Miss Time');
+printf("[%0{$cellsize}s]|", 'Delete Time');
+echo "\n";
+
 // setup  Memcached connection
 $memcached = new Memcached(crc32('test'));
 $memcached->addServer('localhost', 11211);
@@ -41,10 +50,13 @@ foreach ($valuealues as $key => $value) {
 }
 $del_time = sprintf('%01.4f', microtime(true) - $start);
 
-echo "memcached set: $set_time\n";
-echo "memcached get hit: $get_time\n";
-echo "memcached get miss: $miss_time\n";
-echo "memcached delete: $del_time\n";
+// Print table values
+printf("[%0{$cellsize}s]|", $c);
+printf("[%0{$cellsize}s]|", $set_time);
+printf("[%0{$cellsize}s]|", $get_time);
+printf("[%0{$cellsize}s]|", $miss_time);
+printf("[%0{$cellsize}s]|", $del_time);
+echo "\n";
 
 // teardown Memcached connection
 $memcached->flush();
