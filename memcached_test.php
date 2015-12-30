@@ -1,7 +1,7 @@
 <?php
 
 $itterations = [10, 100, 1000, 10000];
-$valuealues = array();
+$values = array();
 
 // Print table header
 $cellsize  = 12;
@@ -19,33 +19,33 @@ foreach ($itterations as $itteration){
     
     // Initialize values
     for ($i=0;$i<$itteration;$i++) {
-        $valuealues[sprintf('%020s',$i)]=sha1($i);
+        $values[sprintf('%020s',$i)]=sha1($i);
     }
     
     // set values
     $start = microtime(true);
-    foreach ($valuealues as $key => $value){
+    foreach ($values as $key => $value){
         $memcached->set($key, $value);
     }
     $set_time = sprintf('%01.4f', microtime(true) - $start);
     
     // get values (hits)
     $start = microtime(true);
-    foreach ($valuealues as $key => $value) {
+    foreach ($values as $key => $value) {
         $memcached->get($key);
     }
     $get_time = sprintf('%01.4f', microtime(true) - $start);
     
     // get values (miss)
     $start = microtime(true);
-    foreach ($valuealues as $key => $value) {
+    foreach ($values as $key => $value) {
         $memcached->get('miss'.$key);
     }
     $miss_time = sprintf('%01.4f', microtime(true) - $start);
     
     // Delete values
     $start = microtime(true);
-    foreach ($valuealues as $key => $value) {
+    foreach ($values as $key => $value) {
         $memcached->delete($key);
     }
     $del_time = sprintf('%01.4f', microtime(true) - $start);
