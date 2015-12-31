@@ -5,11 +5,11 @@ $values = array();
 
 // Print table header
 $cellsize  = 12;
-printf("[%0{$cellsize}s]|", 'Itterations');
-printf("[%0{$cellsize}s]|", 'Set Time');
-printf("[%0{$cellsize}s]|", 'Get Time');
-printf("[%0{$cellsize}s]|", 'Miss Time');
-printf("[%0{$cellsize}s]|", 'Delete Time');
+printf("%-{$cellsize}s|", 'Itterations');
+printf("%-{$cellsize}s|", 'Set Time');
+printf("%-{$cellsize}s|", 'Get Time');
+printf("%-{$cellsize}s|", 'Miss Time');
+printf("%-{$cellsize}s|", 'Delete Time');
 echo "\n";
 
 foreach ($itterations as $itteration){
@@ -50,12 +50,12 @@ foreach ($itterations as $itteration){
     }
     $del_time = sprintf('%01.4f', microtime(true) - $start);
 
-    // Print table values
-    printf("%' {$cellsize}s|", $itteration);
-    printf("[%0{$cellsize}s]|", $set_time);
-    printf("[%0{$cellsize}s]|", $get_time);
-    printf("[%0{$cellsize}s]|", $miss_time);
-    printf("[%0{$cellsize}s]|", $del_time);
+    // Print table values 
+    printf("%-{$cellsize}s|", $itteration);
+    printf("%-{$cellsize}s|", $set_time);
+    printf("%-{$cellsize}s|", $get_time);
+    printf("%-{$cellsize}s|", $miss_time);
+    printf("%-{$cellsize}s|", $del_time);
     echo "\n";
 
     // teardown Memcached connection
